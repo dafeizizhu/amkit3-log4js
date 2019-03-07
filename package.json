@@ -1,0 +1,22 @@
+{
+  "name": "amkit3-log4js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dafeizizhu/amkit3-log4js.git"
+  },
+  "author": "maizhiying",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dafeizizhu/amkit3-log4js/issues"
+  },
+  "homepage": "https://github.com/dafeizizhu/amkit3-log4js#readme",
+  "dependencies": {
+    "date-format": "^2.0.0"
+  }
+}
