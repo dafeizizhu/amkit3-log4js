@@ -1,6 +1,6 @@
 const format = require('date-format')
 
-let console = window.console
+let console = global.console || window.console
 
 if (!console) {
   console = {}
@@ -8,18 +8,40 @@ if (!console) {
 if (!console.log) {
   console.log = () => {}
 }
+
+let level = typeof window !== 'undefined'
+  ? window.localStorage.getItem('amkit3-log4js-level') || 'INFO'
+  : 'INFO'
+
+let log = (l, name, args) => {
+  try {
+    console.log.apply(console, ['[' + format() + '][' + l + '] - ' + name].concat(args))
+  } catch (_) {
+  }
+}
+
 exports.getLogger = name => {
   return {
     debug: (...args) => {
-      if (process.env.NODE_ENV !== 'dev') return
-
-      try { console.log.apply(console, ['[' + format() + '][DEBUG] - ' + name].concat(args)) } catch (e) { console.log(['[' + format() + '][DEBUG] - ' + name].concat(args).join(' ')) }
+      switch (level) {
+        case 'DEBUG':
+          log('DEBUG', name, args)
+      }
     },
     info: (...args) => {
-      try { console.log.apply(console, ['[' + format() + '][INFO] - ' + name].concat(args)) } catch (e) { console.log(['[' + format() + '][INFO] - ' + name].concat(args).join(' ')) }
+      switch (level) {
+        case 'DEBUG':
+        case 'INFO':
+          log('INFO', name, args)
+      }
     },
     warn: (...args) => {
-      try { console.log.apply(console, ['[' + format() + '][WARN] - ' + name].concat(args)) } catch (e) { console.log(['[' + format() + '][WARN] - ' + name].concat(args).join(' ')) }
+      switch (level) {
+        case 'DEBUG':
+        case 'INFO':
+        case 'WARN':
+          log('WARN', name, args)
+      }
     }
   }
 }
